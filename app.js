@@ -1,7 +1,6 @@
 const express = require('express')
 const logger = require('morgan')
 const cors = require('cors')
-const helmet = require('helmet')
 const boolParser = require('express-query-boolean')
 const rateLimit = require('express-rate-limit')
 const swaggerUi = require('swagger-ui-express')
@@ -13,11 +12,14 @@ const app = express()
 
 const formatsLogger = app.get('env') === 'development' ? 'dev' : 'short'
 
-app.use(helmet())
 app.get('env') !== 'test' && app.use(logger(formatsLogger))
 app.use(express.static('public'))
 app.use('/api-docs', swaggerUi.serve, swaggerUi.setup(swaggerDocument))
-
+app.get('/',(req,res)=>{
+res.end(`<div>
+  <ul><li> <a href='/api-docs'><h1>api-docs</h1></a></li></ul>
+  </div>`)
+})
 const limiter = rateLimit({
   windowMs: 15 * 60 * 1000, // 15 minutes
   max: 100, // limit each IP to 100 requests per windowMs
