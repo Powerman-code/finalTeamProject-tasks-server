@@ -24,9 +24,9 @@ const Category = {
 };
 
 const Type = {
-  TASK = "task",
-  CHALLENGE = "challenge",
-}
+  TASK: "task",
+  CHALLENGE: "challenge",
+};
 
 module.exports = {
   Type,

@@ -2,7 +2,7 @@ const Card = require("../model/cardModel");
 
 const getAll = async (req, res, next) => {
   try {
-    const userId = req.user.id;
+    const userId = req.user?.id;
     const allCards = await Card.getAll(userId, req.query);
     return res.status(200).json({
       status: "success",
@@ -16,7 +16,7 @@ const getAll = async (req, res, next) => {
 
 const getById = async (req, res, next) => {
   try {
-    const userId = req.user.id;
+    const userId = req.user?.id;
     const card = await Card.getById(req.params.cardId, userId);
     if (contact) {
       return res.status(200).json({
@@ -38,7 +38,7 @@ const getById = async (req, res, next) => {
 
 const create = async (req, res, next) => {
   try {
-    const userId = req.user.id;
+    const userId = req.user?.id;
     const card = await Card.create({ ...req.body, owner: userId });
     return res.status(201).json({
       status: "success",
@@ -54,7 +54,11 @@ const create = async (req, res, next) => {
 
 const remove = async (req, res, next) => {
   try {
-    const userId = req.user.id;
+    const userId = req.user?.id;
+    console.log(
+      "🚀 ~ file: cardController.js ~ line 61 ~ remove ~ req.params.cardId",
+      req.params.cardId
+    );
     const card = await Card.remove(req.params.cardId, userId);
     if (card) {
       return res.status(201).json({
@@ -79,7 +83,7 @@ const remove = async (req, res, next) => {
 
 const update = async (req, res, next) => {
   try {
-    const userId = req.user.id;
+    const userId = req.user?.id;
     if (req.body) {
       const card = await Card.update(req.params.cardId, req.body, userId);
 

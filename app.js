@@ -1,7 +1,6 @@
 const express = require("express");
 const logger = require("morgan");
 const cors = require("cors");
-const helmet = require("helmet");
 const boolParser = require("express-query-boolean");
 const rateLimit = require("express-rate-limit");
 const swaggerUi = require("swagger-ui-express");
@@ -9,6 +8,7 @@ const swaggerDocument = require("./swagger.json");
 
 const usersRouter = require("./routes/users");
 const cardRouter = require("./routes/card");
+require("dotenv").config();
 
 const app = express();
 

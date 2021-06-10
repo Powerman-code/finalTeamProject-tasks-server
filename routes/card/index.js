@@ -22,12 +22,13 @@ router
   //   cardController.getById
   // )
 
-  .delete("/:contactId", cardController.remove)
+  .delete("/:cardId", cardController.remove)
 
   .patch(
-    "/:contactId",
+    "/:cardId",
 
     // validate.queryMongoIdValid("cardId"),
     // validate.updateContact,
     cardController.update
   );
+module.exports = router;
