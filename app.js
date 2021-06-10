@@ -8,15 +8,20 @@ const swaggerUi = require("swagger-ui-express");
 const swaggerDocument = require("./swagger.json");
 
 const usersRouter = require("./routes/users");
+const cardRouter = require("./routes/card");
 
 const app = express();
 
 const formatsLogger = app.get("env") === "development" ? "dev" : "short";
 
-app.use(helmet());
 app.get("env") !== "test" && app.use(logger(formatsLogger));
 app.use(express.static("public"));
 app.use("/api-docs", swaggerUi.serve, swaggerUi.setup(swaggerDocument));
+app.get("/", (req, res) => {
+  res.end(`<div>
+  <ul><li> <a href='/api-docs'><h1>api-docs</h1></a></li></ul>
+  </div>`);
+});
 
 const limiter = rateLimit({
   windowMs: 15 * 60 * 1000, // 15 minutes
@@ -43,6 +48,7 @@ app.use(express.json());
 app.use(boolParser());
 
 app.use("/api/users", usersRouter);
+app.use("/api/card", cardRouter);
 
 app.use((_, res, __) => {
   res.status(404).json({
