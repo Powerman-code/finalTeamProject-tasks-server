@@ -3,13 +3,14 @@ const router = express.Router();
 // const Contacts = require("../../model/index");
 const cardController = require("../../controllers/cardController");
 // const validate = require("./validation");
-// const guard = require("../../../helpers/guard");
+const guard = require("../../helper/guard");
 
 router
-  .get("/", cardController.getAll)
+  .get("/", guard, cardController.getAll)
 
   .post(
     "/",
+    guard,
     // validate.createCard,
     cardController.create
   );
@@ -22,13 +23,14 @@ router
   //   cardController.getById
   // )
 
-  .delete("/:cardId", cardController.remove)
+  .delete("/:cardId", guard, cardController.remove)
 
   .patch(
     "/:cardId",
-
+    guard,
     // validate.queryMongoIdValid("cardId"),
     // validate.updateContact,
+
     cardController.update
   );
 module.exports = router;

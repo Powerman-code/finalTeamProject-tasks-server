@@ -1,7 +1,10 @@
 const Card = require("./schemas/card");
 
 const getAll = async (userId) => {
-  const result = await Card.find({ owner: userId });
+  const result = await Card.find({ owner: userId }).populate({
+    path: "owner",
+    select: "email",
+  });
   return result;
 };
 
@@ -10,15 +13,11 @@ const getById = async (contactId, userId) => {
     _id: contactId,
     owner: userId,
   });
-  //       .populate({
-  //     path: "owner",
-  //     select: "email subscription", //если нужно исключить поле, -_id например
-  //   });
   return result;
 };
 
-const create = async (body) => {
-  const result = await Card.create(body);
+const create = async (body, userId) => {
+  const result = await Card.create({ ...body, owner: userId });
   return result;
 };
 

@@ -1,7 +1,6 @@
 const mongoose = require("mongoose");
 const { Schema, SchemaTypes, model } = mongoose;
-const bcrypt = require("bcryptjs");
-const { nanoid } = require("nanoid");
+// const { nanoid } = require("nanoid");
 const { Difficulty, Category, Type } = require("./../../helper/constants");
 
 const cardSchema = new Schema(
@@ -56,6 +55,11 @@ const cardSchema = new Schema(
       default: null,
     },
 
+    status: {
+      type: String,
+      default: false,
+    },
+
     owner: {
       type: SchemaTypes.ObjectId,
       ref: "user",
@@ -66,18 +70,6 @@ const cardSchema = new Schema(
     timestamps: true,
   }
 );
-
-// userSchema.pre("save", async function (next) {
-//   if (this.isModified("password")) {
-//     const salt = await bcrypt.genSalt(SALT_FACTOR);
-//     this.password = await bcrypt.hash(this.password, salt);
-//   }
-//   next();
-// });
-
-// userSchema.methods.validPassword = async function (password) {
-//   return await bcrypt.compare(String(password), this.password);
-// };
 
 const Card = model("card", cardSchema);
 

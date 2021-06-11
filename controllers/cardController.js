@@ -39,7 +39,7 @@ const getById = async (req, res, next) => {
 const create = async (req, res, next) => {
   try {
     const userId = req.user?.id;
-    const card = await Card.create({ ...req.body, owner: userId });
+    const card = await Card.create(req.body, userId);
     return res.status(201).json({
       status: "success",
       code: 201,
