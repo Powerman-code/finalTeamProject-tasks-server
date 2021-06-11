@@ -1,7 +1,7 @@
 {
   "openapi": "3.0.1",
   "info": {
-    "version": "1.0.0",
+    "version": "1.0.1",
     "title": "Questify API docs",
     "description": "API documentation for GoIT project 'Questify'. [Backend github repository](https://github.com/Powerman-code/finalTeamProject-tasks-server)",
     "license": {
@@ -320,15 +320,64 @@
             "description": "Session's access token (needed for all requests)",
             "example": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1aWQiOiI1ZmMyMDg1YmQwOTM2NTI4MTA3Y2UyNzQiLCJzaWQiOiI1ZmMyZDJmY2UxZDIwNTA2NzAyYmRkMjIiLCJpYXQiOjE2MDY2MDM1MTYsImV4cCI6MTYwNjYwNzExNn0.rJ_QjU4KvA76H96RHsvOBChK0Vjbd0NmqjMxdQVJIXA"
           },
-          "email": {
-            "type": "string",
-            "description": "User's email",
-            "format": "email"
-          },
-          "id": {
-            "type": "string",
-            "description": "User's id",
-            "example": "507f1f77bcf86cd799439011"
+          "userData": {
+            "type": "object",
+            "properties": {
+              "email": {
+                "type": "string",
+                "description": "User's email",
+                "format": "email"
+              },
+              "id": {
+                "type": "string",
+                "description": "User's id",
+                "example": "507f1f77bcf86cd799439011"
+              },
+              "cards": {
+                "type": "array",
+                "items": {
+                  "type": "object",
+                  "description": "User's card",
+                  "properties": {
+                    "title": {
+                      "type": "string",
+                      "description": "Card's title",
+                      "example": "Take out the trash"
+                    },
+                    "difficulty": {
+                      "type": "string",
+                      "description": "Card's difficulty",
+                      "enum": ["Easy", "Normal", "Hard"]
+                    },
+                    "date": {
+                      "type": "string",
+                      "description": "Card's date (deadline, if card is challenge)",
+                      "example": "2020-12-31"
+                    },
+                    "time": {
+                      "type": "string",
+                      "description": "Card's time (deadline, if card is challenge)",
+                      "example": "20:30"
+                    },
+                    "status": {
+                      "type": "string",
+                      "description": "Card's status",
+                      "enum": ["Incomplete", "Complete"]
+                    },
+                    "type": {
+                      "type": "string",
+                      "description": "Card's type",
+                      "enum": ["Task", "Challenge"]
+                    },
+                    "_id": {
+                      "type": "string",
+                      "description": "Card's id",
+                      "example": "507f1f77bcf86cd799439013"
+                    }
+                  }
+                }
+              }
+            }
           }
         }
       },
