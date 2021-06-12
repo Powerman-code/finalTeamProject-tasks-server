@@ -27,7 +27,7 @@ const reg = async (req, res, next) => {
     const {id, email} = newUser
     return res.status(HttpCode.CREATED).json({
      token,
-        userData:{
+        user:{
           id,
           email
         },
@@ -54,7 +54,7 @@ const login = async (req, res, next) => {
 
   return res.status(HttpCode.OK).json({
    token,
-   userData: {
+   user: {
         email: user.email
      },
   })
