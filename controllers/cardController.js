@@ -1,12 +1,13 @@
 const Card = require("../model/cardModel");
+const { HttpCode } = require("../helper/constants");
 
 const getAll = async (req, res, next) => {
   try {
     const userId = req.user?.id;
     const allCards = await Card.getAll(userId, req.query);
-    return res.status(200).json({
+    return res.status(HttpCode.OK).json({
       status: "success",
-      code: 200,
+      code: HttpCode.OK,
       data: { ...allCards },
     });
   } catch (e) {
@@ -18,9 +19,9 @@ const create = async (req, res, next) => {
   try {
     const userId = req.user?.id;
     const card = await Card.create(req.body, userId);
-    return res.status(201).json({
+    return res.status(HttpCode.CREATED).json({
       status: "success",
-      code: 201,
+      code: HttpCode.CREATED,
       data: {
         card,
       },
@@ -33,24 +34,21 @@ const create = async (req, res, next) => {
 const remove = async (req, res, next) => {
   try {
     const userId = req.user?.id;
-    console.log(
-      "🚀 ~ file: cardController.js ~ line 61 ~ remove ~ req.params.cardId",
-      req.params.cardId
-    );
+
     const card = await Card.remove(req.params.cardId, userId);
     if (card) {
-      return res.status(201).json({
+      return res.status(HttpCode.CREATED).json({
         status: "success",
-        code: 201,
+        code: HttpCode.CREATED,
         data: {
           card,
           message: "card deleted",
         },
       });
     } else {
-      return res.status(404).json({
+      return res.status(HttpCode.NOT_FOUND).json({
         status: "error",
-        code: 404,
+        code: HttpCode.NOT_FOUND,
         data: { message: "Data not found" },
       });
     }
@@ -65,15 +63,15 @@ const update = async (req, res, next) => {
     if (req.body) {
       const card = await Card.update(req.params.cardId, req.body, userId);
 
-      return res.status(200).json({
+      return res.status(HttpCode.OK).json({
         status: "success",
         code: HttpCode.OK,
         data: { card },
       });
     } else {
-      return res.status(404).json({
+      return res.status(HttpCode.NOT_FOUND).json({
         status: "error",
-        code: 404,
+        code: HttpCode.NOT_FOUND,
         data: { message: "Data not found" },
       });
     }
@@ -92,18 +90,18 @@ const updateStatus = async (req, res, next) => {
         userId
       );
 
-      return res.status(200).json({
+      return res.status(HttpCode.OK).json({
         status: "success",
-        code: 200,
+        code: HttpCode.OK,
         data: {
           status,
           message: `Status changed to ${[status]}`,
         },
       });
     } else {
-      return res.status(404).json({
+      return res.status(HttpCode.NOT_FOUND).json({
         status: "error",
-        code: 404,
+        code: HttpCode.NOT_FOUND,
         data: { message: "Data not found" },
       });
     }

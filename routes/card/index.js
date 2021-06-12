@@ -1,6 +1,5 @@
 const express = require("express");
 const router = express.Router();
-// const Contacts = require("../../model/index");
 const cardController = require("../../controllers/cardController");
 const validate = require("./valid-card-router");
 const guard = require("../../helper/guard");
@@ -16,14 +15,15 @@ router
   .patch(
     "/:cardId",
     guard,
-    // validate.queryMongoIdValid("cardId"),
+    validate.validationObjectId("cardId"),
     validate.updateCard,
 
     cardController.update
   );
+
 router.patch(
   "/:cardId/complete",
-  //   // validate.queryMongoIdValid("cardId"),
+  validate.validationObjectId("cardId"),
   validate.updateCardStatus,
   cardController.updateStatus
 );

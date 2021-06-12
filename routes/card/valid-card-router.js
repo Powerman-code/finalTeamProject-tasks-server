@@ -48,35 +48,14 @@ module.exports.updateCard = (req, _res, next) => {
 module.exports.updateCardStatus = (req, _res, next) => {
   return validate(schemaUpdateCardStatus, req.body, next);
 };
-// const validate = async (schema, obj, next) => {
-//   try {
-//     await schema.validateAsync(obj);
-//     return next();
-//   } catch (err) {
-//     console.log(err);
 
-//     if (
-//       err.name === "ValidationError" &&
-//       err.message.includes("password" && "fails to match the required pattern")
-//     ) {
-//       next({
-//         status: 400,
-//         message: "password must be at least 7 characters long",
-//       });
-//     }
-
-//     next({ status: 400, message: err.message.replace(/"/g, "'") });
-//   }
-// };
-
-// module.exports = {
-//   validationUserData: async (req, res, next) => {
-//     return await validate(schemaUserData, req.body, next);
-//   },
-//   validationObjectId: async (req, res, next) => {
-//     if (!mongoose.Types.ObjectId.isValid(req.params.id)) {
-//       return next({ status: 400, message: "Invalid Object Id" });
-//     }
-//     next();
-//   },
-// };
+module.exports.validationObjectId = (id) => (req, res, next) => {
+  const isValid = mongoose.Types.ObjectId.isValid(req.params[id]);
+  if (isValid) {
+    return next();
+  }
+  next({
+    status: 400,
+    message: `Params is not valid ObjectId`,
+  });
+};
