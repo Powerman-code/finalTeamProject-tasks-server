@@ -14,28 +14,6 @@ const getAll = async (req, res, next) => {
   }
 };
 
-const getById = async (req, res, next) => {
-  try {
-    const userId = req.user?.id;
-    const card = await Card.getById(req.params.cardId, userId);
-    if (contact) {
-      return res.status(200).json({
-        status: "success",
-        code: 200,
-        data: { card },
-      });
-    } else {
-      return res.status(404).json({
-        status: "error",
-        code: 404,
-        data: { message: "Data not found" },
-      });
-    }
-  } catch (e) {
-    next(e);
-  }
-};
-
 const create = async (req, res, next) => {
   try {
     const userId = req.user?.id;
@@ -89,8 +67,38 @@ const update = async (req, res, next) => {
 
       return res.status(200).json({
         status: "success",
-        code: 200,
+        code: HttpCode.OK,
         data: { card },
+      });
+    } else {
+      return res.status(404).json({
+        status: "error",
+        code: 404,
+        data: { message: "Data not found" },
+      });
+    }
+  } catch (e) {
+    next(e);
+  }
+};
+
+const updateStatus = async (req, res, next) => {
+  try {
+    const userId = req.user?.id;
+    if (req.body) {
+      const { status } = await Card.updateStatus(
+        req.params.cardId,
+        req.body,
+        userId
+      );
+
+      return res.status(200).json({
+        status: "success",
+        code: 200,
+        data: {
+          status,
+          message: `Status changed to ${[status]}`,
+        },
       });
     } else {
       return res.status(404).json({
@@ -106,8 +114,8 @@ const update = async (req, res, next) => {
 
 module.exports = {
   getAll,
-  getById,
   update,
+  updateStatus,
   remove,
   create,
 };

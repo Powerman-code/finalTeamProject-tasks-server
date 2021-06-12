@@ -1,7 +1,12 @@
 const mongoose = require("mongoose");
 const { Schema, SchemaTypes, model } = mongoose;
 // const { nanoid } = require("nanoid");
-const { Difficulty, Category, Type } = require("./../../helper/constants");
+const {
+  Difficulty,
+  Category,
+  Type,
+  Status,
+} = require("./../../helper/constants");
 
 const cardSchema = new Schema(
   {
@@ -11,8 +16,6 @@ const cardSchema = new Schema(
     },
     difficulty: {
       type: String,
-      //   required: [true, "difficulty is required"],
-      //   unique: true,
       enum: {
         values: [Difficulty.EASY, Difficulty.NORMAL, Difficulty.HARD],
         message: "Card's difficulty",
@@ -32,7 +35,6 @@ const cardSchema = new Schema(
         ],
         message: "Card's category",
       },
-
       default: null,
     },
 
@@ -52,12 +54,16 @@ const cardSchema = new Schema(
         values: [Type.TASK, Type.CHALLENGE],
         message: "Card's type",
       },
-      default: null,
+      default: Type.TASK,
     },
 
     status: {
       type: String,
-      default: false,
+      enum: {
+        values: [Status.COMPLETE, Status.INCOMPLETE],
+        message: "Card's type",
+      },
+      default: Status.INCOMPLETE,
     },
 
     owner: {

@@ -28,9 +28,15 @@ const Type = {
   CHALLENGE: "challenge",
 };
 
+const Status = {
+  INCOMPLETE: "incomplete",
+  COMPLETE: "complete",
+};
+
 module.exports = {
   Type,
   HttpCode,
   Difficulty,
   Category,
+  Status,
 };

@@ -8,14 +8,6 @@ const getAll = async (userId) => {
   return result;
 };
 
-const getById = async (contactId, userId) => {
-  const result = await Card.findOne({
-    _id: contactId,
-    owner: userId,
-  });
-  return result;
-};
-
 const create = async (body, userId) => {
   const result = await Card.create({ ...body, owner: userId });
   return result;
@@ -25,6 +17,15 @@ const update = async (contactId, body, userId) => {
   const result = await Card.findByIdAndUpdate(
     { _id: contactId, owner: userId },
     { ...body },
+    { new: true }
+  );
+  return result;
+};
+
+const updateStatus = async (contactId, status, userId) => {
+  const result = await Card.findByIdAndUpdate(
+    { _id: contactId, owner: userId },
+    { ...status },
     { new: true }
   );
   return result;
@@ -40,8 +41,8 @@ const remove = async (contactId, userId) => {
 
 module.exports = {
   getAll,
-  getById,
   remove,
   create,
   update,
+  updateStatus,
 };
