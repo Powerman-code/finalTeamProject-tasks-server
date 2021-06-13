@@ -10,27 +10,27 @@ const HttpCode = {
 };
 
 const Difficulty = {
-  EASY: "easy",
-  NORMAL: "normal",
-  HARD: "hard",
+  EASY: "Easy",
+  NORMAL: "Normal",
+  HARD: "Hard",
 };
 const Category = {
-  STUFF: "stuff",
-  FAMILY: "family",
-  HEALTH: "health",
-  Learning: "learning",
-  LEISURE: "leisure",
-  WORK: "work",
+  STUFF: "Stuff",
+  FAMILY: "Family",
+  HEALTH: "Health",
+  LEARNING: "Learning",
+  LEISURE: "Leisure",
+  WORK: "Work",
 };
 
 const Type = {
-  TASK: "task",
-  CHALLENGE: "challenge",
+  TASK: "Task",
+  CHALLENGE: "Challenge",
 };
 
 const Status = {
-  INCOMPLETE: "incomplete",
-  COMPLETE: "complete",
+  INCOMPLETE: "Incomplete",
+  COMPLETE: "Complete",
 };
 
 module.exports = {
