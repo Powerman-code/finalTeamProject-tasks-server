@@ -4,11 +4,11 @@ const { HttpCode } = require("../helper/constants");
 const getAll = async (req, res, next) => {
   try {
     const userId = req.user?.id;
-    const allCards = await Card.getAll(userId, req.query);
+    const cards = await Card.getAll(userId, req.query);
     return res.status(HttpCode.OK).json({
       status: "success",
       code: HttpCode.OK,
-      data: { ...allCards },
+      data: { cards },
     });
   } catch (e) {
     next(e);
