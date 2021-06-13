@@ -26,14 +26,11 @@ const reg = async (req, res, next) => {
     await Users.updateToken(newUser.id, token)
     const {id, email} = newUser
     return res.status(HttpCode.CREATED).json({
-      status: 'success',
-      code: HttpCode.CREATED,
-      data: {token,
+     token,
         user:{
           id,
-          email,
-        }
-      },
+          email
+        },
     })
   } catch (e) {
     next(e)
@@ -56,12 +53,9 @@ const login = async (req, res, next) => {
   await Users.updateToken(user.id, token)
 
   return res.status(HttpCode.OK).json({
-    status: 'success',
-    code: HttpCode.OK,
-    data: {token,
-      user: {
-        email: user.email,
-    }
+   token,
+   user: {
+        email: user.email
      },
   })
 }
