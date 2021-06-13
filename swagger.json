@@ -1,7 +1,7 @@
 {
   "openapi": "3.0.1",
   "info": {
-    "version": "1.0.2",
+    "version": "1.1.0",
     "title": "Questify API docs",
     "description": "API documentation for GoIT project 'Questify'. [Backend github repository](https://github.com/Powerman-code/finalTeamProject-tasks-server)",
     "license": {
@@ -125,7 +125,7 @@
         }
       }
     },
-    "/card": {
+    "/api/card": {
       "post": {
         "tags": ["Card"],
         "summary": "Create card",
@@ -259,7 +259,7 @@
         }
       }
     },
-    "/card/complete": {
+    "/api/card/complete": {
       "patch": {
         "tags": ["Card"],
         "summary": "Confirm that card is completed",
