@@ -335,9 +335,7 @@
               }
                 }
               }
-            }
           }
-        }
       },
       "LoginRequest": {
         "required": ["email", "password"],
