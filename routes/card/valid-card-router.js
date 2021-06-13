@@ -3,22 +3,22 @@ const mongoose = require("mongoose");
 
 const schemaCreateCard = Joi.object({
   title: Joi.string().min(2).max(30).required(),
-  difficulty: Joi.string().optional(),
-  category: Joi.string().optional(),
+  difficulty: Joi.string().min(4).max(30).optional(),
+  category: Joi.string().min(4).max(30).optional(),
   date: Joi.string().required(),
   time: Joi.string().required(),
-  type: Joi.string().optional(),
-  status: Joi.string().optional(),
+  type: Joi.string().min(4).max(30).optional(),
+  status: Joi.string().min(4).max(30).optional(),
 });
 
 const schemaUpdateCard = Joi.object({
   title: Joi.string().min(2).max(30).optional(),
-  difficulty: Joi.string().optional(),
-  category: Joi.string().optional(),
+  difficulty: Joi.string().min(4).max(30).optional(),
+  category: Joi.string().min(4).max(30).optional(),
   date: Joi.string().optional(),
   time: Joi.string().optional(),
-  type: Joi.string().optional(),
-  status: Joi.string().optional(),
+  type: Joi.string().min(4).max(30).optional(),
+  status: Joi.string().min(4).max(30).optional(),
 });
 
 const schemaUpdateCardStatus = Joi.object({
