@@ -85,15 +85,14 @@ const updateStatus = async (req, res, next) => {
   try {
     const userId = req.user?.id;
     const cardId = req.params.cardId;
-    const { status } = await Card.updateStatus(cardId, req.body, userId);
+    const card = await Card.updateStatus(cardId, req.body, userId);
 
     if (req.body) {
       return res.status(HttpCode.OK).json({
         status: "success",
         code: HttpCode.OK,
         data: {
-          status,
-          message: `Status changed to ${[status]}`,
+          card,
         },
       });
     } else {
