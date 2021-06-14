@@ -29,7 +29,7 @@ const cardSchema = new Schema(
           Category.STUFF,
           Category.FAMILY,
           Category.HEALTH,
-          Category.Learning,
+          Category.LEARNING,
           Category.LEISURE,
           Category.WORK,
         ],
