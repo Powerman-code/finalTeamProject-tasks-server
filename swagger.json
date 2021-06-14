@@ -1,7 +1,7 @@
 {
   "openapi": "3.0.1",
   "info": {
-    "version": "1.1.0",
+    "version": "1.1.1",
     "title": "Questify API docs",
     "description": "API documentation for GoIT project 'Questify'. [Backend github repository](https://github.com/Powerman-code/finalTeamProject-tasks-server)",
     "license": {
@@ -125,6 +125,44 @@
         }
       }
     },
+    "/api/users/current": {
+      "get": {
+        "tags": ["User"],
+        "summary": "User authentication",
+        "parameters": [],
+        "requestBody": {
+          "description": "Authentication's object",
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/LoginRequest"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Successful operation",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/LoginResponse"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Bad request (invalid request body)",
+            "content": {}
+          },
+          "403": {
+            "description": "Email doesn't exist / Password is wrong",
+            "content": {}
+          }
+        }
+      }
+    },
     "/api/card": {
       "post": {
         "tags": ["Card"],
@@ -162,7 +200,37 @@
             "content": {}
           }
         }
+      
       },
+     
+      "get": {
+        "tags": ["Card"],
+        "summary": "Get all user card",
+        "security": [{ "Bearer": [] }],
+        "parameters": [],
+        "responses": {
+          "201": {
+            "description": "Successful operation",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/GetCardResponse"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Bad request (no token provided)",
+            "content": {}
+          },
+          "404": {
+            "description": "Invalid user / Invalid session",
+            "content": {}
+          }
+        }
+      }
+    },
+    "/api/card/:cardId/": {
       "patch": {
         "tags": ["Card"],
         "summary": "Edit card",
@@ -206,6 +274,7 @@
           }
         }
       },
+      
       "delete": {
         "tags": ["Card"],
         "summary": "Delete card",
@@ -231,35 +300,9 @@
             "content": {}
           }
         }
-      },
-      "get": {
-        "tags": ["Card"],
-        "summary": "Get all user card",
-        "security": [{ "Bearer": [] }],
-        "parameters": [],
-        "responses": {
-          "201": {
-            "description": "Successful operation",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/GetCardResponse"
-                }
-              }
-            }
-          },
-          "400": {
-            "description": "Bad request (no token provided)",
-            "content": {}
-          },
-          "404": {
-            "description": "Invalid user / Invalid session",
-            "content": {}
-          }
-        }
       }
-    },
-    "/api/card/complete": {
+      },
+    "/api/card/:cardId/complete": {
       "patch": {
         "tags": ["Card"],
         "summary": "Confirm that card is completed",
@@ -373,6 +416,16 @@
             }
           }
       },
+      "CurrentResponse": {
+            "type": "object",
+            "properties": {
+              "email": {
+                "type": "string",
+                "description": "User's email",
+                "format": "email"
+      }
+    }
+    },
       "CardRequest": {
         "required": ["title", "difficulty", "type", "date"],
         "type": "object",

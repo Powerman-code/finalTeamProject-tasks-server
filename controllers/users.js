@@ -69,14 +69,10 @@ const logout = async (req, res, next) => {
 const current = async (req, res, next) => {
   const id = req.user.id
   try {
-      const user = await Users.getUserById(id)
+      const user = await Users.findById(id)
       if (user) {
       return res.status(HttpCode.OK).json({
-          status: 'success',
-          code: HttpCode.OK,
-          data: {
               email: user.email,
-          },
       })
       } else {
           return res.status(HttpCode.NOT_FOUND).json({
